@@ -1,5 +1,7 @@
 #include "backend.h"
 
+volatile bool interrupt_callback_flag = false;
+
 void switch_relay(uint16_t delay_ms)
 {
   digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_WORK);
@@ -98,4 +100,9 @@ void get_web_input(uint8_t *data, size_t len)
   WebSerialPro.println(input);
 
   process_input(WebSerialPro, input);
+}
+
+void interrupt_callback(void)
+{
+  interrupt_callback_flag = true;
 }

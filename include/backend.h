@@ -8,6 +8,10 @@
 #include "ESPAsyncWebServer.h"
 #include "WebSerialPro.h"
 
+extern volatile bool interrupt_callback_flag;
+
+void ARDUINO_ISR_ATTR interrupt_callback(void);
+
 void switch_relay(uint16_t delay_ms);
 void print_desktop_state(Print& out);
 void print_esp_ip(Print& out);
