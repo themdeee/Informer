@@ -19,6 +19,16 @@
 #define GPIO_PIN_INPUT      4
 #define GPIO_PIN_OUTPUT     32
 
+#define ETH_SPI_HOST        HSPI_HOST
+#define ETH_SPI_CLOCK_MHZ   25
+
+#define ETH_PIN_INT         27
+#define ETH_PIN_MISO        12
+#define ETH_PIN_MOSI        13
+#define ETH_PIN_SCLK        14
+#define ETH_PIN_CS          15
+#define ETH_PIN_RST         26
+
 #define SCREEN_PIN_BLK      2
 
 #define RELAYS_STATE_WORK   HIGH

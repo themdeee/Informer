@@ -56,6 +56,10 @@ void setup()
     terminalV10.flush();
   #endif
 
+  ESP32_W6100_onEvent();
+
+  ETH.begin(ETH_PIN_MISO, ETH_PIN_MOSI, ETH_PIN_SCLK, ETH_PIN_CS, ETH_PIN_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST);
+
   #if USE_WEB_SERIAL
     #if (defined(AUTH_USER) && defined(AUTH_PASS))
       WebSerialPro.setAuthentication(AUTH_USER, AUTH_PASS);
