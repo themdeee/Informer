@@ -69,6 +69,11 @@ void print_command(Print& out)
   }
 }
 
+void print_compile_time(Print& out)
+{
+  out.printf("Compiled on: %s %s\r\n", __DATE__, __TIME__);
+}
+
 void process_input(Print& out, const String& input)
 {
   std::map<String, std::function<void(Print&)>> commandMap = 
@@ -88,7 +93,7 @@ void process_input(Print& out, const String& input)
   }
   else
   {
-    out.println("wrong input");
+    out.println("Wrong input");
   }
 }
 
