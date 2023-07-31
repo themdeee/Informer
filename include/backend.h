@@ -1,12 +1,11 @@
 #ifndef __BACKEND_H
 #define __BACKEND_H
 
-#include <map>
-
 #include "config.h"
-#include "ddns_esp32.h"
-#include "ESPAsyncWebServer.h"
-#include "WebSerialPro.h"
+
+#include <map>
+#include <esp_ddns.h>
+#include <WebSerialPro.h>
 
 extern volatile bool interrupt_callback_flag;
 
