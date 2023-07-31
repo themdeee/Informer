@@ -69,6 +69,11 @@ void print_command(Print& out)
   }
 }
 
+void print_firmware_version(Print& out)
+{
+  out.printf("Firmware Version: %d.%d.%d\r\n", FIRMWARE_VERSION_MAJOR, FIRMWARE_VERSION_MINOR, FIRMWARE_VERSION_PATCH);
+}
+
 void print_compile_time(Print& out)
 {
   out.printf("Compiled on: %s %s\r\n", __DATE__, __TIME__);

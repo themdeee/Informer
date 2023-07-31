@@ -1,40 +1,44 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#define BLYNK_TEMPLATE_ID   ""
-#define BLYNK_TEMPLATE_NAME ""
-#define BLYNK_AUTH_TOKEN    ""
+#define BLYNK_TEMPLATE_ID       ""
+#define BLYNK_TEMPLATE_NAME     ""
+#define BLYNK_AUTH_TOKEN        ""
 
-#define WIFI_SSID           ""
-#define WIFI_PASS           ""
+#define FIRMWARE_VERSION_MAJOR  1
+#define FIRMWARE_VERSION_MINOR  2
+#define FIRMWARE_VERSION_PATCH  0
 
-#define AUTH_USER           ""
-#define AUTH_PASS           ""
+#define WIFI_SSID               ""
+#define WIFI_PASS               ""
 
-#define USE_BLYNK           true
-#define USE_WEB_SERIAL      true
+#define AUTH_USER               ""
+#define AUTH_PASS               ""
 
-#define WEB_SERIAL_PORT     80
+#define USE_BLYNK               true
+#define USE_WEB_SERIAL          true
 
-#define GPIO_PIN_INPUT      4
-#define GPIO_PIN_OUTPUT     32
+#define WEB_SERIAL_PORT         80
 
-#define ETH_SPI_HOST        HSPI_HOST
-#define ETH_SPI_CLOCK_MHZ   25
+#define GPIO_PIN_INPUT          4
+#define GPIO_PIN_OUTPUT         32
 
-#define ETH_PIN_INT         27
-#define ETH_PIN_MISO        12
-#define ETH_PIN_MOSI        13
-#define ETH_PIN_SCLK        14
-#define ETH_PIN_CS          15
-#define ETH_PIN_RST         26
+#define ETH_SPI_HOST            HSPI_HOST
+#define ETH_SPI_CLOCK_MHZ       25
 
-#define SCREEN_PIN_BLK      2
+#define ETH_PIN_INT             27
+#define ETH_PIN_MISO            12
+#define ETH_PIN_MOSI            13
+#define ETH_PIN_SCLK            14
+#define ETH_PIN_CS              15
+#define ETH_PIN_RST             26
 
-#define RELAYS_STATE_WORK   HIGH
-#define RELAYS_STATE_REST   LOW
+#define SCREEN_PIN_BLK          2
 
-#define SCREEN_STATE_WORK   HIGH
-#define SCREEN_STATE_REST   LOW
+#define RELAYS_STATE_WORK       HIGH
+#define RELAYS_STATE_REST       LOW
+
+#define SCREEN_STATE_WORK       HIGH
+#define SCREEN_STATE_REST       LOW
 
 #endif
