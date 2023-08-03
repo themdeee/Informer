@@ -20,7 +20,7 @@ BLYNK_WRITE(V10)
 
 void setup()
 {
-  pinMode(GPIO_PIN_INPUT, INPUT);
+  pinMode(GPIO_PIN_INPUT, INPUT_PULLDOWN);
   pinMode(GPIO_PIN_OUTPUT, OUTPUT);
   pinMode(SCREEN_PIN_BLK, OUTPUT);
 
