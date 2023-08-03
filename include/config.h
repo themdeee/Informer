@@ -7,13 +7,16 @@
 
 #define FIRMWARE_VERSION_MAJOR  1
 #define FIRMWARE_VERSION_MINOR  2
-#define FIRMWARE_VERSION_PATCH  0
+#define FIRMWARE_VERSION_PATCH  1
 
 #define WIFI_SSID               ""
 #define WIFI_PASS               ""
 
 #define AUTH_USER               ""
 #define AUTH_PASS               ""
+
+#define USE_WIFI                true
+#define USE_ETH                 true
 
 #define USE_BLYNK               true
 #define USE_WEB_SERIAL          true

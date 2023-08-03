@@ -29,36 +29,36 @@ void setup()
 
   Serial.begin(115200);
 
-  #if USE_BLYNK
-    Blynk.begin(BLYNK_AUTH_TOKEN, WIFI_SSID, WIFI_PASS);
-  #endif
-
-  #if (USE_WEB_SERIAL && !USE_BLYNK)
+  #if USE_WIFI
     WiFi.begin(WIFI_SSID, WIFI_PASS);
+    
+    Serial.println("Connecting to WiFi ..");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        Serial.print('.');
+        delay(1000);
+    }
+
+    WiFi.enableIpV6();
+
+    Serial.println("Connected to the WiFi network");
+    Serial.println("IP Address: ");
+    Serial.println(WiFi.localIP());
   #endif
 
-  Serial.println("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED)
-  {
-      Serial.print('.');
-      delay(1000);
-  }
+  #if USE_ETH
+    ESP32_W6100_onEvent();
 
-  WiFi.enableIpV6();
-
-  Serial.println("Connected to the WiFi network");
-  Serial.println("IP Address: ");
-  Serial.println(WiFi.localIP());
+    ETH.begin(ETH_PIN_MISO, ETH_PIN_MOSI, ETH_PIN_SCLK, ETH_PIN_CS, ETH_PIN_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST);
+  #endif
 
   #if USE_BLYNK
+    Blynk.config(BLYNK_AUTH_TOKEN);
+
     terminalV10.clear();
     terminalV10.println("ESP32 is online");
     terminalV10.flush();
   #endif
-
-  ESP32_W6100_onEvent();
-
-  ETH.begin(ETH_PIN_MISO, ETH_PIN_MOSI, ETH_PIN_SCLK, ETH_PIN_CS, ETH_PIN_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST);
 
   #if USE_WEB_SERIAL
     #if (defined(AUTH_USER) && defined(AUTH_PASS))
