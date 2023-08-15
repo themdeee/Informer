@@ -58,6 +58,19 @@ void setup()
     terminalV10.clear();
     terminalV10.println("ESP32 is online");
     terminalV10.flush();
+
+    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+    {
+      ledV6.on();
+      terminalV10.println("Desktop is online");
+      terminalV10.flush();
+    }
+    else
+    {
+      ledV6.off();
+      terminalV10.println("Desktop is offline");
+      terminalV10.flush();
+    }
   #endif
 
   #if USE_WEB_SERIAL
@@ -68,32 +81,9 @@ void setup()
     WebSerialPro.begin(&server);
     WebSerialPro.msgCallback(get_web_input);
     server.begin();
+
+    print_desktop_state(WebSerialPro);
   #endif
-
-  if (digitalRead(GPIO_PIN_INPUT) == HIGH)
-  {
-    #if USE_WEB_SERIAL
-      WebSerialPro.println("Desktop is online");
-    #endif
-
-    #if USE_BLYNK
-      ledV6.on();
-      terminalV10.println("Desktop is online");
-      terminalV10.flush();
-    #endif
-  }
-  else
-  {
-    #if USE_WEB_SERIAL
-      WebSerialPro.println("Desktop is offline");
-    #endif
-
-    #if USE_BLYNK
-      ledV6.off();
-      terminalV10.println("Desktop is offline");
-      terminalV10.flush();
-    #endif
-  }
 
   attachInterrupt(digitalPinToInterrupt(GPIO_PIN_INPUT), interrupt_callback, CHANGE);
 }
@@ -112,30 +102,24 @@ void loop()
   {
     delay(10);
 
-    if (digitalRead(GPIO_PIN_INPUT) == HIGH) 
-    {
-      #if USE_WEB_SERIAL
-        WebSerialPro.println("Desktop is online");
-      #endif
-
-      #if USE_BLYNK
+    #if USE_BLYNK
+      if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+      {
         ledV6.on();
         terminalV10.println("Desktop is online");
         terminalV10.flush();
-      #endif
-    } 
-    else 
-    {
-      #if USE_WEB_SERIAL
-        WebSerialPro.println("Desktop is offline");
-      #endif
-
-      #if USE_BLYNK
+      }
+      else
+      {
         ledV6.off();
         terminalV10.println("Desktop is offline");
         terminalV10.flush();
-      #endif
-    }
+      }
+    #endif
+    
+    #if USE_WEB_SERIAL
+      print_desktop_state(WebSerialPro);
+    #endif
 
     interrupt_callback_flag = false;
   }
