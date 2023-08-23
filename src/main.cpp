@@ -26,7 +26,6 @@ void setup()
   pinMode(MODEM_PIN_SW, OUTPUT);
 
   digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
-  digitalWrite(LCD_PIN_BLK, LCD_STATE_REST);
 
   Serial.begin(115200);
 
@@ -93,6 +92,12 @@ void setup()
     Serial.println("Please enter the AT command in the Serial Monitor to interact");
   #else
     digitalWrite(MODEM_PIN_SW, MODEM_STATE_REST);
+  #endif
+
+  #if USE_LCD
+    digitalWrite(LCD_PIN_BLK, LCD_STATE_WORK);
+  #else
+    digitalWrite(LCD_PIN_BLK, LCD_STATE_REST);
   #endif
 
   attachInterrupt(digitalPinToInterrupt(GPIO_PIN_INPUT), interrupt_callback, CHANGE);

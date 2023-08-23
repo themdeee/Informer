@@ -17,18 +17,22 @@
 
 #define USE_WIFI                true
 #define USE_ETH                 true
-
 #define USE_BLYNK               true
 #define USE_WEB_SERIAL          true
-
 #define USE_MODEM               false
+#define USE_LCD                 false
 
 #define WEB_SERIAL_PORT         80
 
 #define GPIO_PIN_INPUT          21
 
+// Relay config
 #define RELAY_PIN_OUTPUT        47
 
+#define RELAY_STATE_WORK        HIGH
+#define RELAY_STATE_REST        LOW
+
+// ETH config
 #define ETH_SPI_HOST            SPI3_HOST
 #define ETH_SPI_CLOCK_MHZ       25
 
@@ -39,6 +43,7 @@
 #define ETH_PIN_CS              14
 #define ETH_PIN_RST             10
 
+// LCD config
 #define LCD_PIN_CLK             1
 #define LCD_PIN_MOSI            2
 #define LCD_PIN_RES             42
@@ -49,12 +54,10 @@
 #define LCD_PIN_CS2             45
 #define LCD_PIN_PEN             48
 
-#define RELAY_STATE_WORK        HIGH
-#define RELAY_STATE_REST        LOW
-
 #define LCD_STATE_WORK          HIGH
 #define LCD_STATE_REST          LOW
 
+// Modem config
 #define MODEM_SERIAL            Serial1
 #define MODEM_BAUDRATE          115200
 
