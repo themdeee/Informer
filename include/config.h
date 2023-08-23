@@ -21,6 +21,8 @@
 #define USE_BLYNK               true
 #define USE_WEB_SERIAL          true
 
+#define USE_MODEM               false
+
 #define WEB_SERIAL_PORT         80
 
 #define GPIO_PIN_INPUT          21
@@ -52,5 +54,17 @@
 
 #define LCD_STATE_WORK          HIGH
 #define LCD_STATE_REST          LOW
+
+#define MODEM_SERIAL            Serial1
+#define MODEM_BAUDRATE          115200
+
+#define MODEM_PIN_TX            16
+#define MODEM_PIN_RX            15
+#define MODEM_PIN_FLT           17
+#define MODEM_PIN_RST           34
+#define MODEM_PIN_SW            8
+
+#define MODEM_STATE_WORK        HIGH
+#define MODEM_STATE_REST        LOW
 
 #endif

@@ -23,6 +23,7 @@ void setup()
   pinMode(GPIO_PIN_INPUT, INPUT_PULLDOWN);
   pinMode(RELAY_PIN_OUTPUT, OUTPUT);
   pinMode(LCD_PIN_BLK, OUTPUT);
+  pinMode(MODEM_PIN_SW, OUTPUT);
 
   digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
   digitalWrite(LCD_PIN_BLK, LCD_STATE_REST);
@@ -85,6 +86,15 @@ void setup()
     print_desktop_state(WebSerialPro);
   #endif
 
+  #if USE_MODEM
+    digitalWrite(MODEM_PIN_SW, MODEM_STATE_WORK);
+
+    MODEM_SERIAL.begin(MODEM_BAUDRATE, SERIAL_8N1, MODEM_PIN_TX, MODEM_PIN_RX);
+    Serial.println("Please enter the AT command in the Serial Monitor to interact");
+  #else
+    digitalWrite(MODEM_PIN_SW, MODEM_STATE_REST);
+  #endif
+
   attachInterrupt(digitalPinToInterrupt(GPIO_PIN_INPUT), interrupt_callback, CHANGE);
 }
 
@@ -96,6 +106,17 @@ void loop()
 
   #if USE_WEB_SERIAL
     WebSerialPro.loop();
+  #endif
+
+  #if USE_MODEM
+    while (MODEM_SERIAL.available())
+    {
+      Serial.write(MODEM_SERIAL.read());
+    }
+    if (Serial.available())
+    {
+      MODEM_SERIAL.write(Serial.read());
+    }
   #endif
 
   if (interrupt_callback_flag)
