@@ -4,9 +4,9 @@ volatile bool interrupt_callback_flag = false;
 
 void switch_relay(uint16_t delay_ms)
 {
-  digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_WORK);
+  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_WORK);
   delay(delay_ms);
-  digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_REST);
+  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
 }
 
 void print_desktop_state(Print& out)

@@ -4,11 +4,11 @@ BLYNK_WRITE(V3)
 {
   if (param.asInt() == 1)
   {
-    digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_WORK);
+    digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_WORK);
   }
   else
   {
-    digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_REST);
+    digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
   }
 }
 
@@ -21,11 +21,11 @@ BLYNK_WRITE(V10)
 void setup()
 {
   pinMode(GPIO_PIN_INPUT, INPUT_PULLDOWN);
-  pinMode(GPIO_PIN_OUTPUT, OUTPUT);
-  pinMode(SCREEN_PIN_BLK, OUTPUT);
+  pinMode(RELAY_PIN_OUTPUT, OUTPUT);
+  pinMode(LCD_PIN_BLK, OUTPUT);
 
-  digitalWrite(GPIO_PIN_OUTPUT, RELAYS_STATE_REST);
-  digitalWrite(SCREEN_PIN_BLK, SCREEN_STATE_REST);
+  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
+  digitalWrite(LCD_PIN_BLK, LCD_STATE_REST);
 
   Serial.begin(115200);
 
