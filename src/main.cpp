@@ -71,7 +71,7 @@ void setup()
     Blynk.config(BLYNK_AUTH_TOKEN);
 
     terminalV10.clear();
-    terminalV10.println("ESP32 is online");
+    terminalV10.println("Informer is online");
     terminalV10.flush();
 
     if (digitalRead(GPIO_PIN_INPUT) == HIGH)

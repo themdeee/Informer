@@ -47,7 +47,7 @@ void print_esp_uptime(Print& out)
   uint16_t hours = uptime_hour % 24;
   uint16_t days = uptime_day;
 
-  out.printf("System Up Time: %hd Days, %hd Hours, %d Minutes, %ld Seconds\r\n",
+  out.printf("Informer Up Time: %hd Days, %hd Hours, %d Minutes, %ld Seconds\r\n",
               days, hours, minutes, seconds);
 }
 
