@@ -142,6 +142,50 @@ void loop()
     }
   #endif
 
+  #if USE_REMOTER
+    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+    {
+      if (!client.connected()) 
+      {
+        Serial.println("Connecting to server...");
+
+        if (client.connect(REMOTER_SERVER_IP, REMOTER_SERVER_PORT)) 
+        {
+          Serial.println("Connected to server");
+
+          #if USE_BLYNK
+            terminalV10.println("Connected to server");
+            terminalV10.flush();
+          #endif
+
+          #if USE_WEB_SERIAL
+            WebSerialPro.println("Connected to server");
+          #endif
+        }
+        else
+        {
+          Serial.println("Failed to connect to server");
+        }
+      }
+
+      if (client.available()) 
+      {
+        String data = client.readStringUntil('\n');
+
+        #if USE_BLYNK
+          terminalV10.print("-> ");
+          terminalV10.println(data);
+          terminalV10.flush();
+        #endif
+
+        #if USE_WEB_SERIAL
+          WebSerialPro.print("-> ");
+          WebSerialPro.println(data);
+        #endif
+      }
+    }
+  #endif
+
   if (interrupt_callback_flag)
   {
     delay(10);

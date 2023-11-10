@@ -1,5 +1,6 @@
 #include "backend.h"
 
+class WiFiClient client;
 struct tm network_time;
 volatile time_t boot_time;
 volatile bool interrupt_callback_flag = false;

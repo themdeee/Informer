@@ -20,6 +20,7 @@
 #define USE_BLYNK               true
 #define USE_WEB_SERIAL          true
 #define USE_NTP                 true
+#define USE_REMOTER             true
 #define USE_MODEM               false
 #define USE_LCD                 false
 
@@ -75,5 +76,9 @@
 #define NTP_SERVER              "pool.ntp.org"
 #define NTP_TIMEZONE            8
 #define NTP_DST                 0
+
+// Remoter config
+#define REMOTER_SERVER_IP       "192.168.1.1"
+#define REMOTER_SERVER_PORT     12345
 
 #endif

@@ -7,6 +7,7 @@
 #include <esp_ddns.h>
 #include <WebSerialPro.h>
 
+extern class WiFiClient client;
 extern struct tm network_time;
 extern volatile time_t boot_time;
 extern volatile bool interrupt_callback_flag;
