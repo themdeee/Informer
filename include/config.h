@@ -19,6 +19,7 @@
 #define USE_ETH                 true
 #define USE_BLYNK               true
 #define USE_WEB_SERIAL          true
+#define USE_NTP                 true
 #define USE_MODEM               false
 #define USE_LCD                 false
 
@@ -69,5 +70,10 @@
 
 #define MODEM_STATE_WORK        HIGH
 #define MODEM_STATE_REST        LOW
+
+// NTP config
+#define NTP_SERVER              "pool.ntp.org"
+#define NTP_TIMEZONE            8
+#define NTP_DST                 0
 
 #endif
