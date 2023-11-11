@@ -6,7 +6,7 @@
 #define BLYNK_AUTH_TOKEN        ""
 
 #define FIRMWARE_VERSION_MAJOR  2
-#define FIRMWARE_VERSION_MINOR  0
+#define FIRMWARE_VERSION_MINOR  1
 #define FIRMWARE_VERSION_PATCH  0
 
 #define WIFI_SSID               ""

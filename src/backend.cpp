@@ -93,24 +93,6 @@ void print_network_time(Print& out)
   }
 }
 
-void print_command(Print& out)
-{
-  const char* commands[] = {
-    "check",
-    "command",
-    "ip",
-    "reboot",
-    "turnon",
-    "turnoff",
-    "uptime"
-  };
-
-  for (uint8_t i = 0; i < sizeof(commands) / sizeof(commands[0]); i++)
-  {
-    out.println(commands[i]);
-  }
-}
-
 void print_firmware_version(Print& out)
 {
   out.printf("Firmware Version: %d.%d.%d\r\n", FIRMWARE_VERSION_MAJOR, FIRMWARE_VERSION_MINOR, FIRMWARE_VERSION_PATCH);
@@ -121,26 +103,140 @@ void print_compile_time(Print& out)
   out.printf("Compiled on: %s %s\r\n", __DATE__, __TIME__);
 }
 
+void print_logo(Print& out)
+{
+  out.println("      __        __      ");
+  out.println("     /  \\      /  \\     ");
+  out.println("    |    \\____/    |    ");
+  out.println("   |----------------|   ");
+  out.println("  ||**     || **    ||  ");
+  out.println("  ||_**___/  \\_**___||  ");
+  out.println("  |                  |  ");
+  out.println("  |                  |  ");
+  out.println("  |                  |  ");
+  out.println("  |__________________|  ");
+  out.println("___     _               ");
+  out.println(" | __ _|_ _  ____  _  __");
+  out.println("_|_| | | (_) | |||(/_ | ");
+}
+
+void print_info(Print& out)
+{
+  out.println("USE WIFI: " + String(USE_WIFI ? "true" : "false"));
+  out.println("USE ETH: " + String(USE_ETH ? "true" : "false"));
+  out.println("USE BLYNK: " + String(USE_BLYNK ? "true" : "false"));
+  out.println("USE WEB SERIAL: " + String(USE_WEB_SERIAL ? "true" : "false"));
+  out.println("USE NTP: " + String(USE_NTP ? "true" : "false"));
+  out.println("USE REMOTER: " + String(USE_REMOTER ? "true" : "false"));
+  out.println("USE MODEM: " + String(USE_MODEM ? "true" : "false"));
+  out.println("USE LCD: " + String(USE_LCD ? "true" : "false"));
+}
+
 void process_input(Print& out, const String& input)
 {
-  std::map<String, std::function<void(Print&)>> commandMap = 
-  {
-    {"check", print_desktop_state},
-    {"command", print_command},
-    {"ip", print_esp_ip},
-    {"reboot", [] (Print&) { ESP.restart(); }},
-    {"turnon", [] (Print&) { switch_relay(500); }},
-    {"turnoff", [] (Print&) { switch_relay(3000); }},
-    {"uptime", print_esp_uptime}
-  };
+  char *command = NULL;
+  char *option = NULL;
+  char *parameter = NULL;
 
-  if (commandMap.count(input))
+  char *token = strtok(const_cast<char*>(input.c_str()), " ");
+
+  if (token != NULL)
   {
-    commandMap[input](out);
+    command = token;
+    token = strtok(NULL, " ");
+  }
+  if (token != NULL && token[0] == '-')
+  {
+    option = token + 1;
+    token = strtok(NULL, " ");
+  }
+  if (token != NULL)
+  {
+    parameter = token;
+  }
+  
+  if (strcmp(command, "reboot") == 0)
+  {
+    ESP.restart();
+  }
+  else if (strcmp(command, "sysinfo") == 0)
+  {
+    if (option == NULL)
+    {
+      print_logo(out);
+      print_firmware_version(out);
+      print_compile_time(out);
+    }
+    else if (strcmp(option, "ip") == 0)
+    {
+      print_esp_ip(out);
+    }
+    else if (strcmp(option, "time") == 0)
+    {
+      print_network_time(out);
+    }
+    else if (strcmp(option, "uptime") == 0)
+    {
+      print_esp_uptime(out);
+    }
+    else if (strcmp(option, "all") == 0)
+    {
+      print_logo(out);
+      print_firmware_version(out);
+      print_compile_time(out);
+      print_esp_ip(out);
+      print_network_time(out);
+      print_esp_uptime(out);
+      print_info(out);
+    }
+    else
+    {
+      out.println("Invalid option");
+    }
+  }
+  else if (strcmp(command, "remoter") == 0)
+  {
+    if (strcmp(option, "run") == 0 || strcmp(option, "kill") == 0 || strcmp(option, "status") == 0)
+    {
+      std::string command = std::string(parameter) + " " + std::string(option);
+      client.println(command.c_str());
+    }
+    else
+    {
+      out.println("Invalid option");
+    }
+  }
+  else if (strcmp(command, "power") == 0)
+  {
+    if (strcmp(option, "on") == 0)
+    {
+      switch_relay(500);
+    }
+    else if (strcmp(option, "off") == 0)
+    {
+      switch_relay(3000);
+    }
+    else if (strcmp(option, "status") == 0)
+    {
+      print_desktop_state(out);
+    }
+    else
+    {
+      out.println("Invalid option");
+    }
+  }
+  else if (strcmp(command, "help") == 0)
+  {
+    out.println("usage: command -[option] [parameter]");
+    out.println("help");
+    out.println("reboot");
+    out.println("power -[on,off,status]");
+    out.println("sysinfo -[ip,time,uptime,all]");
+    out.println("remoter -[run,kill,status] [app]");
   }
   else
   {
-    out.println("Wrong input");
+    out.println("Invalid command");
   }
 }
 

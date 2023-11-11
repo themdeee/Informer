@@ -19,10 +19,11 @@ void print_desktop_state(Print& out);
 void print_esp_ip(Print& out);
 void print_esp_uptime(Print& out);
 void print_network_time(Print& out);
-void print_command(Print& out);
 void print_firmware_version(Print& out);
 void print_compile_time(Print& out);
 void process_input(Print& out, const String& input);
 void get_web_input(uint8_t *data, size_t len);
+void print_logo(Print& out);
+void print_info(Print& out);
 
 #endif
