@@ -196,14 +196,35 @@ void process_input(Print& out, const String& input)
   }
   else if (strcmp(command, "remoter") == 0)
   {
-    if (strcmp(option, "run") == 0 || strcmp(option, "kill") == 0 || strcmp(option, "status") == 0)
+    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
     {
-      std::string command = std::string(parameter) + " " + std::string(option);
-      client.println(command.c_str());
+      if (option != NULL)
+      {
+        if (strcmp(option, "run") == 0 || strcmp(option, "kill") == 0 || strcmp(option, "status") == 0)
+        {
+          if (parameter != NULL)
+          {
+            std::string command = std::string(parameter) + " " + std::string(option);
+            client.println(command.c_str());
+          }
+          else
+          {
+            out.println("Parameter is required");
+          }
+        }
+        else
+        {
+          out.println("Invalid option");
+        }
+      }
+      else
+      {
+        out.println("Option is required");
+      }
     }
     else
     {
-      out.println("Invalid option");
+      out.println("Desktop is offline");
     }
   }
   else if (strcmp(command, "power") == 0)
