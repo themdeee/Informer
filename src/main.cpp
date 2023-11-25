@@ -103,14 +103,12 @@ void setup()
   #if USE_NTP
     configTime(NTP_TIMEZONE * 3600, NTP_DST * 3600, NTP_SERVER);
 
-    if (getLocalTime(&network_time))
+    if (getLocalTime(&boot_time))
     {
-      boot_time = mktime(&network_time);
-
       Serial.print("Informer Boot Time: ");
       Serial.printf("%d-%02d-%02d %02d:%02d:%02d\r\n",
-                    network_time.tm_year + 1900, network_time.tm_mon + 1, network_time.tm_mday,
-                    network_time.tm_hour, network_time.tm_min, network_time.tm_sec);
+                    boot_time.tm_year + 1900, boot_time.tm_mon + 1, boot_time.tm_mday,
+                    boot_time.tm_hour, boot_time.tm_min, boot_time.tm_sec);
     }
     else
     {

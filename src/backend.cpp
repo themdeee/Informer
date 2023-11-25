@@ -1,8 +1,8 @@
 #include "backend.h"
 
 class WiFiClient client;
+struct tm boot_time;
 struct tm network_time;
-volatile time_t boot_time;
 volatile bool interrupt_callback_flag = false;
 
 void switch_relay(uint16_t delay_ms)
@@ -55,9 +55,10 @@ void print_esp_uptime(Print& out)
 
   if (getLocalTime(&network_time))
   {
-    time_t current_time = mktime(&network_time);
+    time_t boot_time_s = mktime(&boot_time);
+    time_t network_time_s = mktime(&network_time);
 
-    uptime_s = current_time - boot_time;
+    uptime_s = network_time_s - boot_time_s;
     uptime_min = uptime_s / 60;
     uptime_hour = uptime_min / 60;
     uptime_day = uptime_hour / 24;
@@ -70,8 +71,8 @@ void print_esp_uptime(Print& out)
     out.printf("Informer has been running for: %hd Days, %hd Hours, %d Minutes, %ld Seconds ",
                 days, hours, minutes, seconds);
     out.printf("since %d-%02d-%02d %02d:%02d:%02d\r\n",
-                network_time.tm_year + 1900, network_time.tm_mon + 1, network_time.tm_mday,
-                network_time.tm_hour, network_time.tm_min, network_time.tm_sec);
+                boot_time.tm_year + 1900, boot_time.tm_mon + 1, boot_time.tm_mday,
+                boot_time.tm_hour, boot_time.tm_min, boot_time.tm_sec);
   }
   else
   {
