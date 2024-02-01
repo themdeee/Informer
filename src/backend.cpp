@@ -230,21 +230,28 @@ void process_input(Print& out, const String& input)
   }
   else if (strcmp(command, "power") == 0)
   {
-    if (strcmp(option, "on") == 0)
+    if (option != NULL)
     {
-      switch_relay(500);
-    }
-    else if (strcmp(option, "off") == 0)
-    {
-      switch_relay(3000);
-    }
-    else if (strcmp(option, "status") == 0)
-    {
-      print_desktop_state(out);
+      if (strcmp(option, "on") == 0)
+      {
+        switch_relay(500);
+      }
+      else if (strcmp(option, "off") == 0)
+      {
+        switch_relay(3000);
+      }
+      else if (strcmp(option, "status") == 0)
+      {
+        print_desktop_state(out);
+      }
+      else
+      {
+        out.println("Invalid option");
+      }
     }
     else
     {
-      out.println("Invalid option");
+      out.println("Option is required");
     }
   }
   else if (strcmp(command, "help") == 0)
