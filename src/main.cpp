@@ -1,31 +1,33 @@
 #include "main.h"
 
-BLYNK_WRITE(V3)
-{
-  if (param.asInt() == 1)
+#if USE_BLYNK
+  BLYNK_WRITE(V3)
   {
-    digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_WORK);
+    if (param.asInt() == 1)
+    {
+      digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_WORK);
+    }
+    else
+    {
+      digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_REST);
+    }
   }
-  else
-  {
-    digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
-  }
-}
 
-BLYNK_WRITE(V10)
-{  
-  process_input(terminalV10, param.asStr());
-  terminalV10.flush();
-}
+  BLYNK_WRITE(V10)
+  {  
+    process_input(terminalV10, param.asStr());
+    terminalV10.flush();
+  }
+#endif
 
 void setup()
 {
-  pinMode(GPIO_PIN_INPUT, INPUT_PULLDOWN);
-  pinMode(RELAY_PIN_OUTPUT, OUTPUT);
+  pinMode(INFORMER_PIN_INPUT, INPUT_PULLDOWN);
+  pinMode(INFORMER_PIN_OUTPUT, OUTPUT);
   pinMode(LCD_PIN_BLK, OUTPUT);
-  pinMode(MODEM_PIN_SW, OUTPUT);
+  pinMode(MODEM_PIN_SWITCH, OUTPUT);
 
-  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
+  digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_REST);
 
   #if USE_LCD
     digitalWrite(LCD_PIN_BLK, LCD_STATE_WORK);
@@ -34,12 +36,12 @@ void setup()
   #endif
 
   #if USE_MODEM
-    digitalWrite(MODEM_PIN_SW, MODEM_STATE_WORK);
+    digitalWrite(MODEM_PIN_SWITCH, MODEM_STATE_WORK);
 
     MODEM_SERIAL.begin(MODEM_BAUDRATE, SERIAL_8N1, MODEM_PIN_TX, MODEM_PIN_RX);
     Serial.println("Please enter the AT command in the Serial Monitor to interact");
   #else
-    digitalWrite(MODEM_PIN_SW, MODEM_STATE_REST);
+    digitalWrite(MODEM_PIN_SWITCH, MODEM_STATE_REST);
   #endif
 
   Serial.begin(115200);
@@ -74,7 +76,7 @@ void setup()
     terminalV10.println("Informer is online");
     terminalV10.flush();
 
-    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+    if (digitalRead(INFORMER_PIN_INPUT) == HIGH)
     {
       ledV6.on();
       terminalV10.println("Desktop is online");
@@ -89,8 +91,8 @@ void setup()
   #endif
 
   #if USE_WEB_SERIAL
-    #if (defined(AUTH_USER) && defined(AUTH_PASS))
-      WebSerialPro.setAuthentication(AUTH_USER, AUTH_PASS);
+    #if USE_WEB_SERIAL_AUTH
+      WebSerialPro.setAuthentication(WEB_SERIAL_AUTH_USER, WEB_SERIAL_AUTH_PASS);
     #endif
     WebSerialPro.setID("Informer");
     WebSerialPro.begin(&server);
@@ -116,7 +118,7 @@ void setup()
     }
   #endif
 
-  attachInterrupt(digitalPinToInterrupt(GPIO_PIN_INPUT), interrupt_callback, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(INFORMER_PIN_INPUT), interrupt_callback, CHANGE);
 }
 
 void loop()
@@ -141,7 +143,7 @@ void loop()
   #endif
 
   #if USE_REMOTER
-    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+    if (digitalRead(INFORMER_PIN_INPUT) == HIGH)
     {
       if (!client.connected()) 
       {
@@ -189,7 +191,7 @@ void loop()
     delay(10);
 
     #if USE_BLYNK
-      if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+      if (digitalRead(INFORMER_PIN_INPUT) == HIGH)
       {
         ledV6.on();
         terminalV10.println("Desktop is online");

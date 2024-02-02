@@ -7,14 +7,14 @@ volatile bool interrupt_callback_flag = false;
 
 void switch_relay(uint16_t delay_ms)
 {
-  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_WORK);
+  digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_WORK);
   delay(delay_ms);
-  digitalWrite(RELAY_PIN_OUTPUT, RELAY_STATE_REST);
+  digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_REST);
 }
 
 void print_desktop_state(Print& out)
 {
-  if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+  if (digitalRead(INFORMER_PIN_INPUT) == HIGH)
   {
     out.println("Desktop is online");
   }
@@ -96,7 +96,7 @@ void print_network_time(Print& out)
 
 void print_firmware_version(Print& out)
 {
-  out.printf("Firmware Version: %d.%d.%d\r\n", FIRMWARE_VERSION_MAJOR, FIRMWARE_VERSION_MINOR, FIRMWARE_VERSION_PATCH);
+  out.printf("Firmware Version: %d.%d.%d\r\n", INFORMER_FIRMWARE_VERSION_MAJOR, INFORMER_FIRMWARE_VERSION_MINOR, INFORMER_FIRMWARE_VERSION_PATCH);
 }
 
 void print_compile_time(Print& out)
@@ -125,12 +125,13 @@ void print_info(Print& out)
 {
   out.println("USE WIFI: " + String(USE_WIFI ? "true" : "false"));
   out.println("USE ETH: " + String(USE_ETH ? "true" : "false"));
+  out.println("USE LCD: " + String(USE_LCD ? "true" : "false"));
+  out.println("USE MODEM: " + String(USE_MODEM ? "true" : "false"));
+
   out.println("USE BLYNK: " + String(USE_BLYNK ? "true" : "false"));
   out.println("USE WEB SERIAL: " + String(USE_WEB_SERIAL ? "true" : "false"));
   out.println("USE NTP: " + String(USE_NTP ? "true" : "false"));
   out.println("USE REMOTER: " + String(USE_REMOTER ? "true" : "false"));
-  out.println("USE MODEM: " + String(USE_MODEM ? "true" : "false"));
-  out.println("USE LCD: " + String(USE_LCD ? "true" : "false"));
 }
 
 void process_input(Print& out, const String& input)
@@ -197,7 +198,7 @@ void process_input(Print& out, const String& input)
   }
   else if (strcmp(command, "remoter") == 0)
   {
-    if (digitalRead(GPIO_PIN_INPUT) == HIGH)
+    if (digitalRead(INFORMER_PIN_INPUT) == HIGH)
     {
       if (option != NULL)
       {

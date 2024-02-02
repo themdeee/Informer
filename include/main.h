@@ -3,11 +3,15 @@
 
 #include "backend.h"
 
-#include <BlynkSimpleEsp32.h>
+#if USE_BLYNK
+  #include <BlynkSimpleEsp32.h>
 
-WidgetLED ledV6(V6);
-WidgetTerminal terminalV10(V10);
+  WidgetLED ledV6(V6);
+  WidgetTerminal terminalV10(V10);
+#endif
 
-AsyncWebServer server(WEB_SERIAL_PORT);
+#if USE_WEB_SERIAL
+  AsyncWebServer server(WEB_SERIAL_PORT);
+#endif
 
 #endif
