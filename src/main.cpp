@@ -36,6 +36,8 @@ void setup()
   #endif
 
   #if USE_MODEM
+    digitalWrite(MODEM_PIN_SWITCH, MODEM_STATE_REST);
+    delay(500);
     digitalWrite(MODEM_PIN_SWITCH, MODEM_STATE_WORK);
 
     MODEM_SERIAL.begin(MODEM_BAUDRATE, SERIAL_8N1, MODEM_PIN_TX, MODEM_PIN_RX);
