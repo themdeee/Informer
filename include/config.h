@@ -3,11 +3,11 @@
 
 // Informer Config
 #define INFORMER_FIRMWARE_VERSION_MAJOR   2
-#define INFORMER_FIRMWARE_VERSION_MINOR   1
-#define INFORMER_FIRMWARE_VERSION_PATCH   2
+#define INFORMER_FIRMWARE_VERSION_MINOR   2
+#define INFORMER_FIRMWARE_VERSION_PATCH   0
 
-#define INFORMER_PIN_INPUT                21
-#define INFORMER_PIN_OUTPUT               47
+#define INFORMER_PIN_INPUT                47
+#define INFORMER_PIN_OUTPUT               21
 
 #define INFORMER_SWITCH_WORK              HIGH
 #define INFORMER_SWITCH_REST              LOW
@@ -21,7 +21,7 @@
 #endif
 
 // ETH Config
-#define USE_ETH               true
+#define USE_ETH               false
 
 #if USE_ETH
   #define ETH_SPI_HOST        SPI3_HOST
@@ -38,24 +38,24 @@
 // LCD Config
 #define USE_LCD           false
 
-#define LCD_PIN_BLK       40
+#define LCD_PIN_BLK       48
 
 #define LCD_STATE_WORK    HIGH
 #define LCD_STATE_REST    LOW
 
 #if USE_LCD
-#define LCD_PIN_CLK       1
-#define LCD_PIN_MOSI      2
-#define LCD_PIN_RES       42
-#define LCD_PIN_DC        41
-#define LCD_PIN_MISO      39
-#define LCD_PIN_CS1       38
-#define LCD_PIN_CS2       45
-#define LCD_PIN_PEN       48
+  #define LCD_PIN_MOSI      1
+  #define LCD_PIN_DC        2
+  #define LCD_PIN_CLK       42
+  #define LCD_PIN_CS        41
+  #define LCD_PIN_RES       40
+  #define LCD_PIN_SCL       39
+  #define LCD_PIN_SDA       38
+  #define LCD_PIN_INT       45
 #endif
 
 // Modem Config
-#define USE_MODEM           true
+#define USE_MODEM           false
 
 #define MODEM_PIN_SWITCH    8
 
@@ -66,10 +66,10 @@
   #define MODEM_SERIAL      Serial1
   #define MODEM_BAUDRATE    115200
   
-  #define MODEM_PIN_TX      16
-  #define MODEM_PIN_RX      15
-  #define MODEM_PIN_FLT     17
-  #define MODEM_PIN_RST     34
+  #define MODEM_PIN_TX      6
+  #define MODEM_PIN_RX      5
+  #define MODEM_PIN_FLT     7
+  #define MODEM_PIN_RST     15
 #endif
 
 // Blynk Config
