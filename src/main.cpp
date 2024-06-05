@@ -97,6 +97,7 @@ void setup()
       WebSerial.setAuthentication(WEB_SERIAL_AUTH_USER, WEB_SERIAL_AUTH_PASS);
     #endif
     WebSerial.setID("Informer");
+    WebSerial.setTitle("Informer");
     WebSerial.begin(&server);
     WebSerial.onMessage(get_web_input);
     server.begin();
