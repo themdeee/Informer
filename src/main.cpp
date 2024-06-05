@@ -94,14 +94,14 @@ void setup()
 
   #if USE_WEB_SERIAL
     #if USE_WEB_SERIAL_AUTH
-      WebSerialPro.setAuthentication(WEB_SERIAL_AUTH_USER, WEB_SERIAL_AUTH_PASS);
+      WebSerial.setAuthentication(WEB_SERIAL_AUTH_USER, WEB_SERIAL_AUTH_PASS);
     #endif
-    WebSerialPro.setID("Informer");
-    WebSerialPro.begin(&server);
-    WebSerialPro.msgCallback(get_web_input);
+    WebSerial.setID("Informer");
+    WebSerial.begin(&server);
+    WebSerial.onMessage(get_web_input);
     server.begin();
 
-    print_desktop_state(WebSerialPro);
+    print_desktop_state(WebSerial);
   #endif
 
   #if USE_NTP
@@ -130,7 +130,7 @@ void loop()
   #endif
 
   #if USE_WEB_SERIAL
-    WebSerialPro.loop();
+    WebSerial.loop();
   #endif
 
   #if USE_MODEM
@@ -161,7 +161,7 @@ void loop()
           #endif
 
           #if USE_WEB_SERIAL
-            WebSerialPro.println("Connected to server");
+            WebSerial.println("Connected to server");
           #endif
         }
         else
@@ -181,8 +181,8 @@ void loop()
         #endif
 
         #if USE_WEB_SERIAL
-          WebSerialPro.print("-> ");
-          WebSerialPro.println(data);
+          WebSerial.print("-> ");
+          WebSerial.println(data);
         #endif
       }
     }
@@ -208,7 +208,7 @@ void loop()
     #endif
     
     #if USE_WEB_SERIAL
-      print_desktop_state(WebSerialPro);
+      print_desktop_state(WebSerial);
     #endif
 
     interrupt_callback_flag = false;

@@ -274,10 +274,10 @@ void get_web_input(uint8_t *data, size_t len)
 {
   String input(data, len);
 
-  WebSerialPro.print("> ");
-  WebSerialPro.println(input);
+  WebSerial.print("> ");
+  WebSerial.println(input);
 
-  process_input(WebSerialPro, input);
+  process_input(WebSerial, input);
 }
 
 void interrupt_callback(void)
