@@ -5,6 +5,9 @@ struct tm boot_time;
 struct tm network_time;
 volatile bool interrupt_callback_flag = false;
 
+class WiFiUDP UDP;
+class WakeOnLan WOL(UDP);
+
 void switch_relay(uint16_t delay_ms)
 {
   digitalWrite(INFORMER_PIN_OUTPUT, INFORMER_SWITCH_WORK);
@@ -132,6 +135,7 @@ void print_info(Print& out)
   out.println("USE WEB SERIAL: " + String(USE_WEB_SERIAL ? "true" : "false"));
   out.println("USE NTP: " + String(USE_NTP ? "true" : "false"));
   out.println("USE REMOTER: " + String(USE_REMOTER ? "true" : "false"));
+  out.println("USE WOL: " + String(USE_WOL ? "true" : "false"));
 }
 
 void process_input(Print& out, const String& input)
@@ -235,7 +239,25 @@ void process_input(Print& out, const String& input)
     {
       if (strcmp(option, "on") == 0)
       {
-        switch_relay(500);
+        #if USE_WOL
+          if (parameter != NULL)
+          {
+            if (strcmp(parameter, "hw") == 0)
+            {
+              switch_relay(500);
+            }
+            else
+            {
+              out.println("Invalid parameter");
+            }
+          }
+          else
+          {
+            WOL.sendMagicPacket(WOL_MAC);
+          }
+        #else
+          switch_relay(500);
+        #endif
       }
       else if (strcmp(option, "off") == 0)
       {
@@ -260,7 +282,7 @@ void process_input(Print& out, const String& input)
     out.println("usage: command -[option] [parameter]");
     out.println("help");
     out.println("reboot");
-    out.println("power -[on,off,status]");
+    out.println("power -[on,off,status] [hw]");
     out.println("sysinfo -[ip,time,uptime,all]");
     out.println("remoter -[run,kill,status] [app]");
   }

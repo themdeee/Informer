@@ -112,4 +112,11 @@
   #define REMOTER_SERVER_PORT   12345
 #endif
 
+// WOL Config
+#define USE_WOL     true
+
+#if USE_WOL
+  #define WOL_MAC   "01:23:45:67:89:AB"
+#endif
+
 #endif

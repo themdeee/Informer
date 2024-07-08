@@ -6,6 +6,7 @@
 #include <map>
 #include <esp_ddns.h>
 #include <WebSerialPro.h>
+#include <WakeOnLan.h>
 
 extern class WiFiClient client;
 extern struct tm boot_time;
