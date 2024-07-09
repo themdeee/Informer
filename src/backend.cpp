@@ -1,12 +1,12 @@
 #include "backend.h"
 
-class WiFiClient client;
 struct tm boot_time;
 struct tm network_time;
 volatile bool interrupt_callback_flag = false;
 
-class WiFiUDP UDP;
-class WakeOnLan WOL(UDP);
+WiFiUDP UDP;
+WiFiClient client;
+WakeOnLan WOL(UDP);
 
 void switch_relay(uint16_t delay_ms)
 {
@@ -34,7 +34,7 @@ void print_esp_ip(Print& out)
   out.print("Global IPv4: ");
   out.println(get_global_ipv4_address());
   out.print("Local  IPv6: ");
-  out.println(WiFi.localIPv6());
+  out.println(WiFi.linkLocalIPv6());
   out.print("Global IPv6: ");
   out.println(get_global_ipv6_address());
 }

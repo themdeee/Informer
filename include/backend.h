@@ -8,10 +8,11 @@
 #include <WebSerialPro.h>
 #include <WakeOnLan.h>
 
-extern class WiFiClient client;
 extern struct tm boot_time;
 extern struct tm network_time;
 extern volatile bool interrupt_callback_flag;
+
+extern WiFiClient client;
 
 void ARDUINO_ISR_ATTR interrupt_callback(void);
 

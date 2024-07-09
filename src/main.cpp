@@ -49,6 +49,7 @@ void setup()
   Serial.begin(115200);
 
   #if USE_WIFI
+    WiFi.enableIPv6();
     WiFi.begin(WIFI_SSID, WIFI_PASS);
     
     Serial.println("Connecting to WiFi ..");
@@ -57,8 +58,6 @@ void setup()
         Serial.print('.');
         delay(1000);
     }
-
-    WiFi.enableIpV6();
 
     Serial.println("Connected to the WiFi network");
     Serial.println("IP Address: ");
