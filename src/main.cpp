@@ -60,14 +60,26 @@ void setup()
     }
 
     Serial.println("Connected to the WiFi network");
-    Serial.println("IP Address: ");
+    Serial.print("WiFi IPv4 Address: ");
     Serial.println(WiFi.localIP());
   #endif
 
   #if USE_ETH
-    ESP32_W6100_onEvent();
+    SPI.begin(ETH_PIN_SCLK, ETH_PIN_MISO, ETH_PIN_MOSI);
 
-    ETH.begin(ETH_PIN_MISO, ETH_PIN_MOSI, ETH_PIN_SCLK, ETH_PIN_CS, ETH_PIN_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST);
+    ETH.enableIPv6();
+    ETH.begin(ETH_PHY_TYPE, ETH_PHY_ADDR, ETH_PIN_CS, ETH_PIN_INT, ETH_PIN_RST, SPI);
+
+    Serial.println("Connecting to Ethernet ..");
+    while (!ETH.connected())
+    {
+        Serial.print('.');
+        delay(1000);
+    }
+  
+    Serial.println("Connected to the Ethernet network");
+    Serial.print("Ethernet IPv4 Address: ");
+    Serial.println(ETH.localIP());
   #endif
 
   #if USE_BLYNK

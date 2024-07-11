@@ -34,18 +34,18 @@
 /*
   ETH Config
 */
-#define USE_ETH               false
+#define USE_ETH           true
 
 #if USE_ETH
-  #define ETH_SPI_HOST        SPI3_HOST
-  #define ETH_SPI_CLOCK_MHZ   25
+  #define ETH_PHY_TYPE    ETH_PHY_W5500
+  #define ETH_PHY_ADDR    1
 
-  #define ETH_PIN_INT         9
-  #define ETH_PIN_MISO        11
-  #define ETH_PIN_MOSI        12
-  #define ETH_PIN_SCLK        13
-  #define ETH_PIN_CS          14
-  #define ETH_PIN_RST         10
+  #define ETH_PIN_RST     9
+  #define ETH_PIN_INT     10
+  #define ETH_PIN_MOSI    11
+  #define ETH_PIN_MISO    12
+  #define ETH_PIN_SCLK    13
+  #define ETH_PIN_CS      14
 #endif
 
 /*

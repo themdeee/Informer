@@ -29,14 +29,25 @@ void print_desktop_state(Print& out)
 
 void print_esp_ip(Print& out)
 {
-  out.print("Local  IPv4: ");
-  out.println(WiFi.localIP());
-  out.print("Global IPv4: ");
-  out.println(get_global_ipv4_address());
-  out.print("Local  IPv6: ");
-  out.println(WiFi.linkLocalIPv6());
-  out.print("Global IPv6: ");
-  out.println(get_global_ipv6_address());
+  #if USE_WIFI
+    out.print("WiFi Local  IPv4: ");
+    out.println(WiFi.localIP());
+    out.print("WiFi Global IPv4: ");
+    out.println(get_global_ipv4_address());
+    out.print("WiFi Local  IPv6: ");
+    out.println(WiFi.linkLocalIPv6());
+    out.print("WiFi Global IPv6: ");
+    out.println(WiFi.globalIPv6());
+  #endif
+
+  #if USE_ETH
+    out.print("Ethernet Local  IPv4: ");
+    out.println(ETH.localIP());
+    out.print("Ethernet Local  IPv6: ");
+    out.println(ETH.linkLocalIPv6());
+    out.print("Ethernet Global IPv6: ");
+    out.println(ETH.globalIPv6());
+  #endif
 }
 
 void print_esp_uptime(Print& out)

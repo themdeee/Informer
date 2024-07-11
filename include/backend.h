@@ -7,6 +7,7 @@
 #include <esp_ddns.h>
 #include <WebSerialPro.h>
 #include <WakeOnLan.h>
+#include <ETH.h>
 
 extern struct tm boot_time;
 extern struct tm network_time;
