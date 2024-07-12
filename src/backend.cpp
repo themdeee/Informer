@@ -272,7 +272,7 @@ void process_input(Print& out, const String& input)
       }
       else if (strcmp(option, "off") == 0)
       {
-        switch_relay(3000);
+        switch_relay(5000);
       }
       else if (strcmp(option, "status") == 0)
       {

@@ -7,8 +7,8 @@
   Informer Config
 */
 #define INFORMER_FIRMWARE_VERSION_MAJOR   2
-#define INFORMER_FIRMWARE_VERSION_MINOR   2
-#define INFORMER_FIRMWARE_VERSION_PATCH   1
+#define INFORMER_FIRMWARE_VERSION_MINOR   3
+#define INFORMER_FIRMWARE_VERSION_PATCH   0
 
 #define INFORMER_PIN_INPUT                47
 #define INFORMER_PIN_OUTPUT               21
@@ -51,22 +51,22 @@
 /*
   LCD Config
 */
-#define USE_LCD             false
+#define USE_LCD           false
 
-#define LCD_PIN_BLK         48
+#define LCD_PIN_BLK       4
 
-#define LCD_STATE_WORK      HIGH
-#define LCD_STATE_REST      LOW
+#define LCD_STATE_WORK    HIGH
+#define LCD_STATE_REST    LOW
 
 #if USE_LCD
-  #define LCD_PIN_MOSI      1
-  #define LCD_PIN_DC        2
-  #define LCD_PIN_CLK       42
-  #define LCD_PIN_CS        41
-  #define LCD_PIN_RES       40
-  #define LCD_PIN_SCL       39
-  #define LCD_PIN_SDA       38
-  #define LCD_PIN_INT       45
+  #define LCD_PIN_MOSI    1
+  #define LCD_PIN_DC      2
+  #define LCD_PIN_CLK     42
+  #define LCD_PIN_CS      41
+  #define LCD_PIN_RES     40
+  #define LCD_PIN_SCL     39
+  #define LCD_PIN_SDA     38
+  #define LCD_PIN_INT     45
 #endif
 
 /*
@@ -118,7 +118,7 @@
     #define WEB_SERIAL_PORT         80
   #endif
 
-  #define USE_WEB_SERIAL_AUTH       false
+  #define USE_WEB_SERIAL_AUTH       true
 #endif
 
 #if USE_WEB_SERIAL_AUTH
