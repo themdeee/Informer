@@ -64,7 +64,7 @@ void print_esp_uptime(Print& out)
   uint16_t hours = uptime_hour % 24;
   uint16_t days = uptime_day;
 
-  out.printf("Informer Up Time: %hd Days, %hd Hours, %d Minutes, %ld Seconds\r\n",
+  out.printf("Informer Up Time: %hd Days, %hd Hours, %ld Minutes, %ld Seconds\r\n",
               days, hours, minutes, seconds);
 
   if (getLocalTime(&network_time))
@@ -82,7 +82,7 @@ void print_esp_uptime(Print& out)
     hours = uptime_hour % 24;
     days = uptime_day;
 
-    out.printf("Informer has been running for: %hd Days, %hd Hours, %d Minutes, %ld Seconds ",
+    out.printf("Informer has been running for: %hd Days, %hd Hours, %ld Minutes, %ld Seconds ",
                 days, hours, minutes, seconds);
     out.printf("since %d-%02d-%02d %02d:%02d:%02d\r\n",
                 boot_time.tm_year + 1900, boot_time.tm_mon + 1, boot_time.tm_mday,
