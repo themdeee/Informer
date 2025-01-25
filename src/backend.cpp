@@ -30,10 +30,12 @@ void print_desktop_state(Print& out)
 void print_esp_ip(Print& out)
 {
   #if USE_WIFI
+    String esp_global_ipv4_address = get_global_ipv4_address();
+
     out.print("WiFi Local  IPv4: ");
     out.println(WiFi.localIP());
     out.print("WiFi Global IPv4: ");
-    out.println(get_global_ipv4_address());
+    out.println(esp_global_ipv4_address);
     out.print("WiFi Local  IPv6: ");
     out.println(WiFi.linkLocalIPv6());
     out.print("WiFi Global IPv6: ");
