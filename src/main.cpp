@@ -125,7 +125,9 @@ void setup()
       Serial.print('.');
       delay(1000);
     }
-  
+
+    boot_time.tm_sec = boot_time.tm_sec - esp_timer_get_time() / 1000000;
+
     Serial.print("Informer Boot Time: ");
     Serial.printf("%d-%02d-%02d %02d:%02d:%02d\r\n",
                   boot_time.tm_year + 1900, boot_time.tm_mon + 1, boot_time.tm_mday,
